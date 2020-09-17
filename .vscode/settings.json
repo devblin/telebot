@@ -1,0 +1,43 @@
+{
+	"editor.tabSize": 4,
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "kokororin.vscode-phpfmt",
+	"phpfmt.enable_auto_align": true,
+	"phpfmt.detect_indent": false,
+	"phpfmt.smart_linebreak_after_curly": true,
+	"phpfmt.indent_with_space": 3,
+	"phpfmt.passes": [
+		"PSR2KeywordsLowerCase",
+		"PSR2LnAfterNamespace",
+		"PSR2CurlyOpenNextLine",
+		"PSR2ModifierVisibilityStaticOrder",
+		"PSR2SingleEmptyLineAndStripClosingTag",
+		"ReindentSwitchBlocks",
+		"AlignConstVisibilityEquals",
+		"AlignDoubleArrow",
+		"AlignDoubleSlashComments",
+		"AlignEquals",
+		"AlignGroupDoubleArrow",
+		"AlignPHPCode",
+		"AlignTypehint",
+		"AutoSemicolon",
+		"ConvertOpenTagWithEcho",
+		"NewLineBeforeReturn",
+		"OnlyOrderUseClauses",
+		"PrettyPrintDocBlocks",
+		"RemoveSemicolonAfterCurly",
+		"ReplaceBooleanAndOr",
+		"ShortArray",
+		"StripExtraCommaInArray",
+		"TrimSpaceBeforeSemicolon"
+	],
+	"phpfmt.exclude": [
+		"SpaceAfterExclamationMark",
+		"ReindentComments",
+		"StripNewlineWithinClassBody"
+	],
+	"phpfmt.psr2": false,
+	"[jsonc]": {
+		"editor.defaultFormatter": "vscode.json-language-features"
+	}
+}

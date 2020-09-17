@@ -1,0 +1,9 @@
+{
+    "name": "devblin/telebot",
+    "description": "A multipurpose, feature-rich telegram bot.",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^5.3",
+        "symfony/http-client": "^5.2"
+    }
+}
