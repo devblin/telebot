@@ -5,7 +5,7 @@ $bot_tokken = env('API_KEY');
 $update = file_get_contents("php://input");
 $update = json_decode($update, true);
 $userId = isset($update["message"]["from"]["id"]) ? $update["message"]["from"]["id"] : null;
-$commands = "/help - To see all commands.\n/send to GROUP_NAME msg YOUR_MESSAGE - To send message to group.\n/show - To get lists of groups.";
+$commands = "/help - To see all commands.\n/send to GROUP_NAME msg\nYOUR_MESSAGE\n - To send message to group.\n/show - To get lists of groups.";
 
 $newBot =  new Bot();
 
@@ -16,6 +16,8 @@ if ($chatId) {
     $chatName = isset($update['message']['chat']['title']) ? $update['message']['chat']['title'] : null;
     $name = $update['message']['from']['first_name'];
     $msg = "Hello I am devblin_bot and here is your ID:" . $chatId;
+
+    $newBot->addNewUser($userId, $name);
 
     if (isset($update["message"]["text"]) && isset($update["message"]["entities"])) {
         $commandRecieved = $update['message']['text'];
@@ -43,8 +45,9 @@ if ($chatId) {
             $commGiven = $commandRecieved;
             $comm = explode(" to ", $commGiven);
             if ($comm[0] == "/send") {
-                $comm1  = explode(" msg ", $comm[1]);
+                $comm1  = explode(" msg", $comm[1]);
                 $groupName = trim($comm1[0]);
+
                 $msgTosend = $comm1[1];
                 $grpId = $newBot->getGroupId($groupName, $userId);
                 if ($grpId != null) {
@@ -66,9 +69,15 @@ if ($chatId) {
             $newBot->addNewUser($userId, $name);
             $newBot->addNewGroup($userId, $chatId, $chatName);
         }
+    } else if (isset($update["message"]["left_chat_participant"]["username"])) {
+        if ($update["message"]["left_chat_participant"]["username"] == "devblin_bot") {
+            $newBot->deletGroup($chatId);
+        }
     } else {
         $newBot->addNewUser($userId, $name);
         $newBot->addNewGroup($userId, $chatId, $chatName);
+        $params = setParams($userId, "Hey, Want some help? Send me /help");
+        CURL("sendMessage", $params);
     }
 }
 
@@ -117,15 +126,19 @@ class Bot
         $sql = "SELECT * FROM users WHERE USERID=?";
         $checkUser = checkData($sql, "i", array($userid));
         if ($checkUser == 1) {
-            $sql = "SELECT * FROM groups WHERE GROUPID=?";
-            $checkGroup = checkData($sql, "i", array($groupid));
+            $sql = "SELECT * FROM groups WHERE GROUPID=? AND USERID=?";
+            $checkGroup = checkData($sql, "si", array($groupid, $userid));
             if ($checkGroup == 0) {
                 $sql = "INSERT INTO groups(USERID,GROUPID,GROUPNAME) VALUES(?,?,?)";
                 opData($sql, "iss", array($userid, $groupid, $groupname));
             }
         }
     }
-
+    function deletGroup($groupid)
+    {
+        $sql = "DELETE FROM groups WHERE GROUPID=?";
+        opData($sql, "s", array($groupid));
+    }
     function getGroupId($groupname, $userid)
     {
         $sql = "SELECT * FROM groups WHERE GROUPNAME=? AND USERID=?";
