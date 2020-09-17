@@ -68,6 +68,7 @@ if ($chatId) {
         }
     } else {
         $newBot->addNewUser($userId, $name);
+        $newBot->addNewGroup($userId, $chatId, $chatName);
     }
 }
 
