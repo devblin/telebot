@@ -10,12 +10,12 @@
 
 ##### 4. Go to https://api.telegram.org/botYOUR_API_KEY/setWebhook?url=BASE_HTTPS_URL
 
-        * YOU WILL SEE FOLLOWING:
-        > {"ok":true,"result":true,"description":"Webhook was set"}
-        * GO TO FOLLOWING AND CHECK:
-         Go to URL https://api.telegram.org/botYOUR_API_KEY/getWebhookInfo
-        * You WILL SEE:
-         {"ok":true,"result":{"url":"https://92468decce2c.ngrok.io/TeleBot/","has_custom_certificate":false,"pending_update_count":0,"max_connections":40}}
-        * IF NOT:
-         Go to URL https://api.telegram.org/botYOUR_API_KEY/deleteWebhook
-        * Then do step-3 again :)
+- YOU WILL SEE FOLLOWING:
+  > {"ok":true,"result":true,"description":"Webhook was set"}
+- GO TO FOLLOWING AND CHECK:
+  > Go to URL https://api.telegram.org/botYOUR_API_KEY/getWebhookInfo
+- You WILL SEE:
+  > {"ok":true,"result":{"url":"https://92468decce2c.ngrok.io/TeleBot/","has_custom_certificate":false,"pending_update_count":0,"max_connections":40}}
+- IF NOT:
+  > Go to URL https://api.telegram.org/botYOUR_API_KEY/deleteWebhook
+- Then do step-3 again :)
