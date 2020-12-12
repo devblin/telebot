@@ -20,7 +20,15 @@
   ```
 - You WILL SEE:
   ```sh
-  {"ok":true,"result":{"url":"BASE_HTTPS_URL","has_custom_certificate":false,"pending_update_count":0,"max_connections":40}}
+  {
+    "ok":true,
+    "result":{
+      "url":"BASE_HTTPS_URL",
+      "has_custom_certificate":false,
+      "pending_update_count":0,
+      "max_connections":40
+      }
+  }
   ```
 - IF NOT:
   ```
