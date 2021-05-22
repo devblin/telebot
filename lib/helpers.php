@@ -2,11 +2,14 @@
 require __DIR__ . "/../vendor/autoload.php";
 use Symfony\Component\HttpClient\HttpClient;
 
+//Loading ENVs
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__, 1));
 $dotenv->load();
+
 $apiUrl     = $_ENV['TELEGRAM_ENDPOINT'];
 $httpClient = HttpClient::create();
 
+// For GET & POST requests utility function
 class Http
 {
    public $url;

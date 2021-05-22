@@ -2,9 +2,11 @@
 require __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . "/lib/helpers.php";
 
-$update  = file_get_contents("php://input");
-$update  = json_decode($update, true);
-$message = $update['message'];
+$update   = file_get_contents("php://input");
+$update   = json_decode($update, true);
+$botName  = $_ENV['BOT_NAME'];
+$message  = $update['message'];
+$commands = ['/start', '/help', '/send', '/joke', '/quote'];
 
 if ($message) {
    /**
