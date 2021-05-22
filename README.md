@@ -1,37 +1,51 @@
-# TeleBot
+# Telebot
 
-###### Note: If you have created the new bot follow following instructions to use.
+🤖 A multipurpose, feature-rich telegram bot.
 
-##### 1. Get your telegram API_KEY.
+## Contents:
 
-##### 2. Open env_sample.php file in setup folder and replace 'YOUR_API_KEY' with the one you have.
+- [Setup](#setup)
+- [Commands](#commands)
 
-##### 3. Enter you DataBase credentials in env.php file and export the given SQL to you DB.
+## Setup
 
-##### 4. Go to https://api.telegram.org/botYOUR_API_KEY/setWebhook?url=BASE_HTTPS_URL
+1. Get your bot token using BotFather.
+2. Create .env using .env.example and replace <TOKEN> with the bot token generated.
+3. Go to https://api.telegram.org/bot[TOKEN]/setWebhook?url=[BASE_HTTPS_URL].
 
-- YOU WILL SEE FOLLOWING:
-  ```sh
-  {"ok":true,"result":true,"description":"Webhook was set"}
-  ```
-- GO TO FOLLOWING AND CHECK:
-  ```
-  Go to URL https://api.telegram.org/botYOUR_API_KEY/getWebhookInfo
-  ```
-- You WILL SEE:
-  ```sh
+- Set web-hook:
+  ```js
   {
-    "ok":true,
-    "result":{
-      "url":"BASE_HTTPS_URL",
-      "has_custom_certificate":false,
-      "pending_update_count":0,
-      "max_connections":40
-      }
+    "ok": true,
+    "result": true,
+    "description": "Webhook was set"
   }
   ```
-- IF NOT:
-  ```
+- Check if web-hook is set:
+
+  Go to URL: https://api.telegram.org/botYOUR_API_KEY/getWebhookInfo
+
+    - Response
+      ```js
+      {
+        "ok":true,
+        "result":{
+          "url":"BASE_HTTPS_URL",
+          "has_custom_certificate":false,
+          "pending_update_count":0,
+          "max_connections":40
+          }
+      }
+      ```
+- If not set:
+
   Go to URL https://api.telegram.org/botYOUR_API_KEY/deleteWebhook
-  ```
-- Then do step-3 again :)
+
+- Then, repeat from Step-3 again :).
+
+
+## Commands
+
+- /start : Start journey with the bot.
+- /poll : Create poll.
+- /send : Send message to users/groups.
