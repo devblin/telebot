@@ -1,24 +1,25 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-require_once __DIR__ . "/lib/helpers.php";
+require_once __DIR__ . "/lib/main.php";
 
 $update   = file_get_contents("php://input");
 $update   = json_decode($update, true);
 $botName  = $_ENV['BOT_NAME'];
 $message  = $update['message'];
-$commands = ['/start', '/help', '/send', '/joke', '/quote'];
+$commands = ['/start', '/help', '/send', '/show', '/joke', '/quote', '/meme', '/tictactoe'];
 
 if ($message) {
+   $messageId = $message['message_id'];
    /**
     *  "from": {
-    *       "id": **********,
+    *       "id":  **********,
     *       "is_bot": false,
     *       "first_name": "Deepanshu",
     *       "username": "devblin",
     *       "language_code": "en"
     *   },
     */
-   $messageFrom = $message['from'];
+   $from = $message['from'];
 
    /**
     *  "chat": {
@@ -41,4 +42,32 @@ if ($message) {
     *   ]
     */
    $entities = $message['entities'];
+
+   $bot = new Bot($message, $from, $chat, $text, $entities);
+
+   if ($entities[0]['type'] === "bot_command") {
+      switch ($text) {
+         case '/start':
+            $bot->start();
+            break;
+
+         case '/help':
+            $bot->help();
+            break;
+
+         case '/show':
+         case '/send':
+         case '/joke':
+         case '/quote':
+         case '/meme':
+         case '/tictactoe':
+            $bot->comingSoon();
+
+         default:
+            break;
+      }
+   } else if ($entities[0]['type'] === 'mention' && explode("@", $text)[1] === $botName) {
+      $bot->botMention();
+   }
+
 }
