@@ -12,17 +12,22 @@ $httpClient = HttpClient::create();
 // For GET & POST requests utility function
 class Http
 {
-   public $url;
+   private $url, $method;
 
-   public function __construct($method)
+   public function __construct($method, $url = '')
    {
       global $apiUrl;
-      $this->url = $apiUrl . $method;
+      if ($url) {
+         $this->url = $url;
+      } else {
+         $this->url = $apiUrl;
+      }
+      $this->method = $method;
    }
    public function getReq($query = [])
    {
       global $httpClient;
-      $response = $httpClient->request('GET', $this->url, [
+      $response = $httpClient->request('GET', $this->url . $this->method, [
          'query' => $query
       ]);
       $content = $response->getContent();
@@ -32,7 +37,7 @@ class Http
    public function postReq($body = [])
    {
       global $httpClient;
-      $response = $httpClient->request('POST', $this->url, [
+      $response = $httpClient->request('POST', $this->url . $this->method, [
          'body' => $body
       ]);
       $content = $response->getContent();

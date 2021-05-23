@@ -6,7 +6,7 @@ $update   = file_get_contents("php://input");
 $update   = json_decode($update, true);
 $botName  = $_ENV['BOT_NAME'];
 $message  = $update['message'];
-$commands = ['/start', '/help', '/send', '/show', '/joke', '/quote', '/meme', '/tictactoe'];
+$commands = ['/start', '/help', '/send', '/show', '/joke', '/quote', '/meme', '/quiz', '/tictactoe'];
 
 if ($message) {
    $messageId = $message['message_id'];
@@ -47,20 +47,33 @@ if ($message) {
 
    if ($entities[0]['type'] === "bot_command") {
       switch ($text) {
-         case '/start':
+         case "/start":
+         case "/start@$botName":
             $bot->start();
             break;
 
-         case '/help':
+         case "/help":
+         case "/help@$botName":
             $bot->help();
             break;
 
-         case '/show':
-         case '/send':
-         case '/joke':
-         case '/quote':
-         case '/meme':
-         case '/tictactoe':
+         case "/quiz":
+         case "/quiz@$botName":
+            $bot->quiz();
+            break;
+
+         case "/show":
+         case "/send":
+         case "/joke":
+         case "/quote":
+         case "/meme":
+         case "/tictactoe":
+         case "/show@$botName":
+         case "/send@$botName":
+         case "/joke@$botName":
+         case "/quote@$botName":
+         case "/meme@$botName":
+         case "/tictactoe@$botName":
             $bot->comingSoon();
 
          default:
